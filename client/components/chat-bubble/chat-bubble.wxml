@@ -1,0 +1,22 @@
+<view class="chat-bubble {{isMe ? 'me' : 'other'}} {{type}}">
+  <!-- 系统消息 -->
+  <view class="system-message" wx:if="{{type === 'system'}}">
+    <text class="system-text">{{message.content}}</text>
+  </view>
+  
+  <!-- 普通消息 -->
+  <view class="normal-message" wx:else>
+    <view class="message-header" wx:if="{{!isMe}}">
+      <image class="sender-avatar" src="{{getAvatarUrl()}}"></image>
+      <text class="sender-name">{{message.senderName}}</text>
+    </view>
+    
+    <view class="message-content">
+      <text class="content-text">{{message.content}}</text>
+    </view>
+    
+    <view class="message-time">
+      <text class="time-text">{{formatTime(message.timestamp)}}</text>
+    </view>
+  </view>
+</view>

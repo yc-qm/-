@@ -1,0 +1,427 @@
+/* 个人中心容器 */
+.profile-container {
+  min-height: 100vh;
+  background: #f5f7fa;
+  padding-bottom: 120rpx;
+}
+
+/* 用户卡片 */
+.user-card {
+  background: white;
+  border-radius: 0 0 30rpx 30rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 20rpx rgba(0, 0, 0, 0.1);
+  margin-bottom: 30rpx;
+}
+
+.user-bg {
+  height: 150rpx;
+  background: linear-gradient(135deg, #1a5f1a 0%, #2a7a2a 100%);
+}
+
+.user-info {
+  display: flex;
+  padding: 0 40rpx;
+  margin-top: -60rpx;
+  margin-bottom: 30rpx;
+}
+
+.user-avatar {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: 50%;
+  border: 6rpx solid white;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.2);
+  background: #f0f0f0;
+}
+
+.user-details {
+  flex: 1;
+  margin-left: 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.user-name-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.user-name {
+  font-size: 40rpx;
+  font-weight: bold;
+  color: #333;
+  margin-right: 20rpx;
+}
+
+.btn-edit {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  width: 40rpx;
+  height: 40rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.btn-edit::after {
+  border: none;
+}
+
+.edit-icon {
+  width: 30rpx;
+  height: 30rpx;
+}
+
+.user-id {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 15rpx;
+}
+
+.user-signature {
+  font-size: 28rpx;
+  color: #666;
+  line-height: 1.4;
+}
+
+.user-signature.placeholder {
+  color: #ccc;
+  font-style: italic;
+}
+
+/* 用户资产 */
+.user-assets {
+  display: flex;
+  justify-content: space-around;
+  padding: 30rpx 40rpx;
+  border-top: 1rpx solid #eee;
+}
+
+.asset-item {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  justify-content: center;
+}
+
+.asset-icon {
+  width: 50rpx;
+  height: 50rpx;
+  margin-right: 15rpx;
+}
+
+.asset-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.asset-name {
+  font-size: 24rpx;
+  color: #999;
+  margin-bottom: 5rpx;
+}
+
+.asset-value {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+/* 游戏数据 */
+.stats-section {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin: 0 30rpx 30rpx;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.05);
+}
+
+.section-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 30rpx;
+  display: block;
+  position: relative;
+  padding-left: 20rpx;
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8rpx;
+  height: 30rpx;
+  background: #1a5f1a;
+  border-radius: 4rpx;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20rpx;
+  margin-bottom: 30rpx;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20rpx;
+  background: #f8f9fa;
+  border-radius: 15rpx;
+}
+
+.stat-value {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #1a5f1a;
+  margin-bottom: 10rpx;
+}
+
+.stat-label {
+  font-size: 24rpx;
+  color: #666;
+}
+
+.detailed-stats {
+  background: #f8f9fa;
+  border-radius: 15rpx;
+  padding: 20rpx;
+}
+
+.detailed-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15rpx 0;
+  border-bottom: 1rpx solid #eee;
+}
+
+.detailed-item:last-child {
+  border-bottom: none;
+}
+
+.detailed-label {
+  font-size: 28rpx;
+  color: #666;
+}
+
+.detailed-value {
+  font-size: 32rpx;
+  font-weight: bold;
+}
+
+.detailed-value.positive {
+  color: #4CAF50;
+}
+
+.detailed-value.negative {
+  color: #ff6b6b;
+}
+
+/* 功能列表 */
+.functions-section {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx;
+  margin: 0 30rpx;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.05);
+}
+
+.function-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.function-item {
+  display: flex;
+  align-items: center;
+  padding: 25rpx 0;
+  border-bottom: 1rpx solid #eee;
+  position: relative;
+}
+
+.function-item:last-child {
+  border-bottom: none;
+}
+
+.function-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 20rpx;
+}
+
+.function-name {
+  flex: 1;
+  font-size: 32rpx;
+  color: #333;
+}
+
+.arrow-icon {
+  width: 24rpx;
+  height: 24rpx;
+  opacity: 0.5;
+}
+
+.badge {
+  position: absolute;
+  right: 60rpx;
+  background: #ff6b6b;
+  color: white;
+  font-size: 20rpx;
+  min-width: 30rpx;
+  height: 30rpx;
+  border-radius: 15rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 8rpx;
+}
+
+/* 底部操作 */
+.bottom-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  padding: 30rpx;
+  border-top: 1rpx solid #eee;
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.05);
+}
+
+.btn-logout {
+  background: #ff6b6b;
+  color: white;
+  border: none;
+  border-radius: 50rpx;
+  padding: 25rpx 0;
+  font-size: 32rpx;
+  font-weight: bold;
+  width: 100%;
+}
+
+.btn-logout::after {
+  border: none;
+}
+
+/* 编辑签名弹窗 */
+.signature-input {
+  width: 100%;
+  min-height: 150rpx;
+  padding: 20rpx;
+  border: 1rpx solid #ddd;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  line-height: 1.4;
+  box-sizing: border-box;
+}
+
+.char-count {
+  text-align: right;
+  font-size: 24rpx;
+  color: #999;
+  margin-top: 10rpx;
+}
+
+/* 弹窗样式（复用room中的样式，稍作修改） */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.modal.show {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 20rpx;
+  width: 80%;
+  max-width: 600rpx;
+  overflow: hidden;
+  animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(100rpx);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.modal-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal-close {
+  font-size: 50rpx;
+  color: #999;
+  line-height: 1;
+}
+
+.modal-body {
+  padding: 30rpx;
+}
+
+.modal-footer {
+  display: flex;
+  padding: 20rpx 30rpx;
+  gap: 20rpx;
+}
+
+.btn-cancel, .btn-confirm {
+  flex: 1;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  padding: 20rpx 0;
+}
+
+.btn-cancel {
+  background: #f5f7fa;
+  color: #666;
+  border: none;
+}
+
+.btn-confirm {
+  background: linear-gradient(135deg, #1a5f1a 0%, #2a7a2a 100%);
+  color: white;
+  border: none;
+}
+
+.btn-confirm::after, .btn-cancel::after {
+  border: none;
+}

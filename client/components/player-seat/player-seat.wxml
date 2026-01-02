@@ -1,0 +1,38 @@
+<view 
+  class="player-seat seat-{{position}} {{player.userId ? 'occupied' : 'empty'}} {{player.isReady ? 'ready' : ''}}"
+  bindtap="onTap"
+>
+  <view class="player-content">
+    <!-- 空座位 -->
+    <view class="empty-seat" wx:if="{{!player.userId}}">
+      <image src="/images/icons/empty-seat.png" class="empty-icon"></image>
+      <text class="empty-text">等待加入</text>
+    </view>
+    
+    <!-- 有玩家的座位 -->
+    <view class="occupied-seat" wx:else>
+      <view class="player-avatar-container">
+        <image class="player-avatar" src="{{player.avatarUrl}}"></image>
+        <view class="player-status">
+          <image 
+            src="/images/icons/{{player.isReady ? 'ready' : 'waiting'}}.png" 
+            class="status-icon"
+          ></image>
+        </view>
+        <view class="owner-badge" wx:if="{{player.isOwner}}">
+          房主
+        </view>
+      </view>
+      
+      <view class="player-info">
+        <text class="player-name">{{player.nickName}}</text>
+        <view class="player-stats">
+          <text class="player-gold">{{player.gold || 0}}金币</text>
+          <text class="player-ready" wx:if="{{!isMe}}">
+            {{player.isReady ? '已准备' : '未准备'}}
+          </text>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

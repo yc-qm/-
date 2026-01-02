@@ -1,0 +1,26 @@
+<view class="room-item" bindtap="onTap">
+  <view class="room-header">
+    <text class="room-id">房间号: {{roomId}}</text>
+    <text class="room-type">{{roomType === 'friend' ? '好友房' : '匹配房'}}</text>
+  </view>
+  
+  <view class="room-info">
+    <view class="room-stake">
+      <image src="/images/icons/gold.png" class="info-icon"></image>
+      <text>{{baseGold}}金币场</text>
+    </view>
+    
+    <view class="room-players">
+      <image src="/images/icons/player.png" class="info-icon"></image>
+      <text>{{currentPlayers}}/{{maxPlayers}}人</text>
+    </view>
+  </view>
+  
+  <view class="room-creator">
+    <text>房主: {{creator}}</text>
+  </view>
+  
+  <view class="room-join">
+    <text>点击加入</text>
+  </view>
+</view>

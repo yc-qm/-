@@ -1,0 +1,5 @@
+<view class="mode-card" style="background-color: {{bgColor}};" bindtap="onTap">
+  <image class="mode-icon" src="{{icon}}"></image>
+  <text class="mode-title">{{title}}</text>
+  <text class="mode-desc">{{desc}}</text>
+</view>

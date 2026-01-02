@@ -1,0 +1,158 @@
+<view class="chat-box {{mode}}">
+  <!-- 聊天消息列表 -->
+  <scroll-view 
+    class="message-list" 
+    scroll-y 
+    scroll-with-animation 
+    scroll-top="{{scrollTop}}"
+    bindscroll="onScroll"
+  >
+    <!-- 消息分组 -->
+    <block wx:for="{{messageGroups}}" wx:key="timestamp">
+      <!-- 时间分割线 -->
+      <view class="time-divider" wx:if="{{item.showTime}}">
+        <text class="time-text">{{formatTime(item.timestamp, 'HH:mm')}}</text>
+      </view>
+      
+      <!-- 分组内的消息 -->
+      <block wx:for="{{item.messages}}" wx:key="id">
+        <view class="message-wrapper {{item.senderId === myUserId ? 'sent' : 'received'}}">
+          <!-- 系统消息 -->
+          <view class="system-message" wx:if="{{item.type === 'system'}}">
+            <text class="system-text">{{item.content}}</text>
+          </view>
+          
+          <!-- 普通消息 -->
+          <view class="normal-message" wx:else>
+            <!-- 发送者信息 -->
+            <view class="sender-info" wx:if="{{showSenderInfo && !item.isContinuation}}">
+              <image class="sender-avatar" src="{{item.avatarUrl || '/images/avatars/default.png'}}"></image>
+              <text class="sender-name">{{item.senderName}}</text>
+            </view>
+            
+            <!-- 消息内容 -->
+            <view class="message-content">
+              <!-- 文本消息 -->
+              <text class="message-text" wx:if="{{item.contentType === 'text'}}">
+                {{item.content}}
+              </text>
+              
+              <!-- 表情消息 -->
+              <image 
+                class="emoji-message" 
+                wx:elif="{{item.contentType === 'emoji'}}" 
+                src="{{item.content}}"
+              ></image>
+              
+              <!-- 道具消息 -->
+              <view class="item-message" wx:elif="{{item.contentType === 'item'}}">
+                <image class="item-icon" src="{{item.itemIcon}}"></image>
+                <text class="item-text">使用了 {{item.itemName}}</text>
+              </view>
+              
+              <!-- 语音消息 -->
+              <view class="voice-message" wx:elif="{{item.contentType === 'voice'}}" bindtap="playVoice">
+                <image class="voice-icon" src="/images/icons/voice.png"></image>
+                <text class="voice-duration">{{item.duration}}''</text>
+              </view>
+            </view>
+            
+            <!-- 消息状态 -->
+            <view class="message-status">
+              <text class="message-time">{{formatTime(item.timestamp, 'HH:mm')}}</text>
+              <image 
+                class="status-icon" 
+                src="/images/icons/{{item.status || 'sent'}}.png"
+                wx:if="{{item.senderId === myUserId}}"
+              ></image>
+            </view>
+          </view>
+        </view>
+      </block>
+    </block>
+    
+    <!-- 加载更多提示 -->
+    <view class="load-more" wx:if="{{hasMore}}">
+      <text class="load-more-text" bindtap="loadMoreMessages">加载更多消息</text>
+    </view>
+  </scroll-view>
+  
+  <!-- 聊天输入区域 -->
+  <view class="input-area" wx:if="{{showInput}}">
+    <!-- 快捷短语 -->
+    <view class="quick-phrases" wx:if="{{showQuickPhrases}}">
+      <scroll-view class="phrases-list" scroll-x>
+        <block wx:for="{{quickPhrases}}" wx:key="index">
+          <button 
+            class="phrase-btn" 
+            bindtap="sendQuickPhrase"
+            data-index="{{index}}"
+          >
+            {{item}}
+          </button>
+        </block>
+      </scroll-view>
+    </view>
+    
+    <!-- 输入框 -->
+    <view class="input-container">
+      <!-- 表情按钮 -->
+      <button class="emoji-btn" bindtap="toggleEmojiPanel">
+        <image src="/images/icons/emoji.png" class="btn-icon"></image>
+      </button>
+      
+      <!-- 语音按钮 -->
+      <button class="voice-btn" bindtap="toggleVoiceMode">
+        <image src="/images/icons/microphone.png" class="btn-icon"></image>
+      </button>
+      
+      <!-- 输入框 -->
+      <input 
+        class="message-input" 
+        placeholder="{{inputPlaceholder}}"
+        value="{{inputValue}}"
+        bindinput="onInput"
+        bindconfirm="sendMessage"
+        confirm-type="send"
+        adjust-position="{{true}}"
+        focus="{{isInputFocus}}"
+        wx:if="{{!isVoiceMode}}"
+      />
+      
+      <!-- 语音输入 -->
+      <view class="voice-input" wx:else bindtouchstart="startVoiceRecord" bindtouchend="endVoiceRecord">
+        <image src="/images/icons/microphone.png" class="voice-icon-large"></image>
+        <text class="voice-tip">按住说话</text>
+      </view>
+      
+      <!-- 发送按钮 -->
+      <button 
+        class="send-btn" 
+        bindtap="sendMessage"
+        disabled="{{!canSend}}"
+      >
+        发送
+      </button>
+    </view>
+    
+    <!-- 表情面板 -->
+    <view class="emoji-panel" wx:if="{{showEmojiPanel}}">
+      <scroll-view class="emoji-list" scroll-y>
+        <block wx:for="{{emojiList}}" wx:key="index">
+          <view class="emoji-item" bindtap="selectEmoji" data-emoji="{{item}}">
+            <image src="{{item}}" class="emoji"></image>
+          </view>
+        </block>
+      </scroll-view>
+    </view>
+  </view>
+  
+  <!-- 录音提示 -->
+  <view class="voice-recording {{isRecording ? 'show' : ''}}">
+    <view class="recording-content">
+      <image src="/images/icons/recording.png" class="recording-icon"></image>
+      <text class="recording-text">正在录音... {{recordingTime}}s</text>
+      <text class="recording-tip">上滑取消发送</text>
+    </view>
+  </view>
+</view>

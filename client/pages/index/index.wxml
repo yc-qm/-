@@ -1,0 +1,188 @@
+<!-- 首页 - 扑克游戏大厅 -->
+<view class="index-container">
+  
+  <!-- 顶部用户信息栏 -->
+  <view class="user-info-section">
+    <view class="user-avatar-box" bindtap="goToProfile">
+      <image class="user-avatar" src="{{userInfo.avatarUrl || '/images/avatars/default.png'}}"></image>
+      <view class="user-name">{{userInfo.nickName || '点击登录'}}</view>
+    </view>
+    
+    <view class="user-assets">
+      <view class="gold-box">
+        <image class="coin-icon" src="/images/icons/gold.png"></image>
+        <text class="gold-number">{{userGold}}</text>
+        <button class="btn-recharge" size="mini" bindtap="goToRecharge">充值</button>
+      </view>
+      <view class="diamond-box">
+        <image class="diamond-icon" src="/images/icons/diamond.png"></image>
+        <text class="diamond-number">{{userDiamond}}</text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 活动公告轮播 -->
+  <swiper class="activity-swiper" indicator-dots="true" autoplay="true" interval="3000">
+    <block wx:for="{{activities}}" wx:key="id">
+      <swiper-item>
+        <view class="activity-item" style="background-color: {{item.bgColor}};" bindtap="viewActivity" data-id="{{item.id}}">
+          <text class="activity-title">{{item.title}}</text>
+          <text class="activity-desc">{{item.description}}</text>
+        </view>
+      </swiper-item>
+    </block>
+  </swiper>
+  
+  <!-- 游戏模式选择 -->
+  <view class="game-modes-section">
+    <text class="section-title">选择游戏模式</text>
+    <view class="mode-cards">
+      <!-- 好友对战 -->
+      <game-mode-card 
+        title="好友对战" 
+        desc="与好友一起游戏" 
+        icon="/images/icons/friend.png"
+        bgColor="#4CAF50"
+        bindtap="goToFriendGame"
+      />
+      
+      <!-- 随机匹配 -->
+      <game-mode-card 
+        title="随机匹配" 
+        desc="与在线玩家对战" 
+        icon="/images/icons/match.png"
+        bgColor="#2196F3"
+        bindtap="goToRandomMatch"
+      />
+      
+      <!-- 残局闯关 -->
+      <game-mode-card 
+        title="残局闯关" 
+        desc="挑战各种残局" 
+        icon="/images/icons/challenge.png"
+        bgColor="#FF9800"
+        bindtap="goToChallenge"
+      />
+      
+      <!-- 规则说明 -->
+      <game-mode-card 
+        title="游戏规则" 
+        desc="了解详细规则" 
+        icon="/images/icons/rule.png"
+        bgColor="#9C27B0"
+        bindtap="goToRules"
+      />
+    </view>
+  </view>
+  
+  <!-- 场次选择（点击随机匹配后显示） -->
+  <view class="stakes-section" wx:if="{{showStakes}}">
+    <text class="section-title">选择场次</text>
+    <view class="stakes-cards">
+      <view 
+        class="stake-card {{selectedStake === item.value ? 'selected' : ''}}" 
+        wx:for="{{stakes}}" 
+        wx:key="value"
+        bindtap="selectStake" 
+        data-value="{{item.value}}"
+      >
+        <text class="stake-name">{{item.name}}</text>
+        <text class="stake-amount">{{item.amount}}金币</text>
+        <text class="stake-desc">{{item.desc}}</text>
+      </view>
+    </view>
+    <button class="btn-confirm-stake" bindtap="confirmStakeSelection">确认进入匹配</button>
+  </view>
+  
+  <!-- 快速开始房间 -->
+  <view class="quick-rooms-section" wx:if="{{!showStakes}}">
+    <view class="section-header">
+      <text class="section-title">快速开始房间</text>
+      <text class="refresh-btn" bindtap="refreshRooms">刷新</text>
+    </view>
+    
+    <view class="rooms-list">
+      <block wx:for="{{quickRooms}}" wx:key="id">
+        <room-item 
+          roomId="{{item.id}}"
+          roomType="{{item.type}}"
+          baseGold="{{item.baseGold}}"
+          currentPlayers="{{item.currentPlayers}}"
+          maxPlayers="4"
+          creator="{{item.creatorName}}"
+          bindtap="joinRoom"
+        />
+      </block>
+      
+      <view class="empty-rooms" wx:if="{{quickRooms.length === 0}}">
+        <image src="/images/icons/empty.png" class="empty-icon"></image>
+        <text class="empty-text">暂无快速房间</text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 底部操作栏 -->
+  <view class="bottom-actions">
+    <button class="btn-create-room" bindtap="createRoom">
+      <image src="/images/icons/create.png" class="btn-icon"></image>
+      <text>创建房间</text>
+    </button>
+    
+    <button class="btn-rank" bindtap="goToRank">
+      <image src="/images/icons/rank.png" class="btn-icon"></image>
+      <text>排行榜</text>
+    </button>
+    
+    <button class="btn-shop" bindtap="goToShop">
+      <image src="/images/icons/shop.png" class="btn-icon"></image>
+      <text>商城</text>
+    </button>
+    
+    <button class="btn-settings" bindtap="goToSettings">
+      <image src="/images/icons/settings.png" class="btn-icon"></image>
+      <text>设置</text>
+    </button>
+  </view>
+  
+  <!-- 创建房间弹窗 -->
+  <view class="modal {{showCreateModal ? 'show' : ''}}" wx:if="{{showCreateModal}}">
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">创建房间</text>
+        <text class="modal-close" bindtap="hideCreateModal">×</text>
+      </view>
+      
+      <view class="modal-body">
+        <view class="form-group">
+          <text class="form-label">房间类型</text>
+          <picker range="{{roomTypes}}" value="{{selectedRoomType}}" bindchange="onRoomTypeChange">
+            <view class="picker">{{roomTypes[selectedRoomType]}}</view>
+          </picker>
+        </view>
+        
+        <view class="form-group">
+          <text class="form-label">场次选择</text>
+          <picker range="{{stakeOptions}}" value="{{selectedStakeOption}}" bindchange="onStakeOptionChange">
+            <view class="picker">{{stakeOptions[selectedStakeOption].name}}</view>
+          </picker>
+        </view>
+        
+        <view class="form-group">
+          <text class="form-label">房间密码</text>
+          <input 
+            type="text" 
+            placeholder="选填，设置后需要密码才能进入" 
+            value="{{roomPassword}}"
+            bindinput="onPasswordInput"
+            maxlength="6"
+          />
+        </view>
+      </view>
+      
+      <view class="modal-footer">
+        <button class="btn-cancel" bindtap="hideCreateModal">取消</button>
+        <button class="btn-confirm" bindtap="createNewRoom">确认创建</button>
+      </view>
+    </view>
+  </view>
+</view>

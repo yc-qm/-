@@ -1,0 +1,167 @@
+.player-seat {
+  position: absolute;
+  transition: all 0.3s;
+}
+
+/* 不同位置的样式 */
+.seat-top {
+  top: -80rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.seat-left {
+  left: -80rpx;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.seat-right {
+  right: -80rpx;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.seat-bottom {
+  bottom: -80rpx;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+/* 空座位样式 */
+.empty-seat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 180rpx;
+  height: 180rpx;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 20rpx;
+  border: 2rpx dashed rgba(255, 255, 255, 0.3);
+}
+
+.empty-icon {
+  width: 60rpx;
+  height: 60rpx;
+  opacity: 0.5;
+  margin-bottom: 10rpx;
+}
+
+.empty-text {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* 有玩家的座位样式 */
+.occupied-seat {
+  display: flex;
+  align-items: center;
+  background: rgba(0, 0, 0, 0.7);
+  border-radius: 20rpx;
+  padding: 15rpx;
+  min-width: 250rpx;
+  border: 2rpx solid transparent;
+}
+
+.ready .occupied-seat {
+  border-color: #4CAF50;
+  background: rgba(76, 175, 80, 0.1);
+}
+
+.player-avatar-container {
+  position: relative;
+  margin-right: 15rpx;
+}
+
+.player-avatar {
+  width: 80rpx;
+  height: 80rpx;
+  border-radius: 50%;
+  border: 3rpx solid white;
+}
+
+.player-status {
+  position: absolute;
+  bottom: -5rpx;
+  right: -5rpx;
+  width: 30rpx;
+  height: 30rpx;
+  border-radius: 50%;
+  background: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-icon {
+  width: 20rpx;
+  height: 20rpx;
+}
+
+.owner-badge {
+  position: absolute;
+  top: -5rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffd700;
+  color: #8b4513;
+  font-size: 20rpx;
+  padding: 2rpx 8rpx;
+  border-radius: 10rpx;
+  white-space: nowrap;
+}
+
+.player-info {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 5rpx;
+}
+
+.player-name {
+  font-size: 28rpx;
+  color: white;
+  font-weight: bold;
+  max-width: 150rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.player-stats {
+  display: flex;
+  flex-direction: column;
+  gap: 3rpx;
+}
+
+.player-gold {
+  font-size: 22rpx;
+  color: #ffd700;
+}
+
+.player-ready {
+  font-size: 22rpx;
+  color: #4CAF50;
+}
+
+/* 上下位置的特殊样式 */
+.seat-top .occupied-seat,
+.seat-bottom .occupied-seat {
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 20rpx;
+  min-width: 200rpx;
+}
+
+.seat-top .player-avatar-container,
+.seat-bottom .player-avatar-container {
+  margin-right: 0;
+  margin-bottom: 10rpx;
+}
+
+.seat-top .player-info,
+.seat-bottom .player-info {
+  align-items: center;
+}

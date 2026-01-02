@@ -1,0 +1,56 @@
+<view class="card-display {{type}} {{selected ? 'selected' : ''}} {{disabled ? 'disabled' : ''}}" 
+      style="{{cardStyle}}"
+      bindtap="onTap"
+      bindlongpress="onLongPress">
+  
+  <!-- 牌背面 -->
+  <view class="card-back" wx:if="{{showBack}}">
+    <image class="back-image" src="/images/cards/back.png" mode="aspectFill"></image>
+  </view>
+  
+  <!-- 牌正面 -->
+  <view class="card-front" wx:else>
+    <!-- 牌面内容 -->
+    <view class="card-content">
+      <!-- 左上角花色和点数 -->
+      <view class="corner top-left">
+        <text class="card-rank {{suitClass}}">{{displayRank}}</text>
+        <view class="corner-suit">
+          <image wx:if="{{suitImage}}" src="{{suitImage}}" class="suit-icon"></image>
+          <text wx:else class="suit-text {{suitClass}}">{{suitSymbol}}</text>
+        </view>
+      </view>
+      
+      <!-- 中央大花色 -->
+      <view class="center-suit" wx:if="{{!isJoker}}">
+        <image wx:if="{{suitImage}}" src="{{suitImage}}" class="suit-icon-large"></image>
+        <text wx:else class="suit-text-large {{suitClass}}">{{suitSymbol}}</text>
+      </view>
+      
+      <!-- 大小王特殊显示 -->
+      <view class="joker-center" wx:if="{{isJoker}}">
+        <image src="/images/cards/joker.png" class="joker-image"></image>
+        <text class="joker-text">{{jokerText}}</text>
+      </view>
+      
+      <!-- 右下角花色和点数 -->
+      <view class="corner bottom-right">
+        <text class="card-rank {{suitClass}}">{{displayRank}}</text>
+        <view class="corner-suit">
+          <image wx:if="{{suitImage}}" src="{{suitImage}}" class="suit-icon"></image>
+          <text wx:else class="suit-text {{suitClass}}">{{suitSymbol}}</text>
+        </view>
+      </view>
+    </view>
+    
+    <!-- 选中标记 -->
+    <view class="selected-mark" wx:if="{{selected}}">
+      <image src="/images/icons/selected.png" class="selected-icon"></image>
+    </view>
+  </view>
+  
+  <!-- 禁用遮罩 -->
+  <view class="disabled-overlay" wx:if="{{disabled}}">
+    <image src="/images/icons/disabled.png" class="disabled-icon"></image>
+  </view>
+</view>

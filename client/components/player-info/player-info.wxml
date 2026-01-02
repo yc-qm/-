@@ -1,0 +1,64 @@
+<view class="player-info {{type}} {{size}} {{isMe ? 'me' : ''}}" bindtap="onTap">
+  <!-- 头像区域 -->
+  <view class="avatar-container">
+    <image class="avatar" src="{{player.avatarUrl || '/images/avatars/default.png'}}"></image>
+    
+    <!-- 状态标识 -->
+    <view class="status-badge {{getStatusClass()}}" wx:if="{{player.status}}">
+      <image src="/images/icons/{{getStatusIcon()}}.png" class="status-icon"></image>
+    </view>
+    
+    <!-- 房主标识 -->
+    <view class="owner-badge" wx:if="{{player.isOwner}}">
+      <image src="/images/icons/crown.png" class="owner-icon"></image>
+    </view>
+    
+    <!-- VIP标识 -->
+    <view class="vip-badge" wx:if="{{player.vipLevel > 0}}">
+      <text>VIP{{player.vipLevel}}</text>
+    </view>
+  </view>
+  
+  <!-- 信息区域 -->
+  <view class="info-container">
+    <view class="name-row">
+      <text class="player-name">{{player.nickName}}</text>
+      <image src="/images/icons/{{player.gender || 'unknown'}}.png" class="gender-icon"></image>
+    </view>
+    
+    <view class="stats-row">
+      <!-- 等级 -->
+      <view class="level-box" wx:if="{{player.level}}">
+        <image src="/images/icons/level.png" class="stats-icon"></image>
+        <text class="stats-text">Lv.{{player.level}}</text>
+      </view>
+      
+      <!-- 金币 -->
+      <view class="gold-box">
+        <image src="/images/icons/coin.png" class="stats-icon"></image>
+        <text class="stats-text">{{formatNumber(player.goldCoins || 0)}}</text>
+      </view>
+      
+      <!-- 胜率 -->
+      <view class="winrate-box" wx:if="{{player.winRate !== undefined}}">
+        <image src="/images/icons/winrate.png" class="stats-icon"></image>
+        <text class="stats-text">{{player.winRate}}%</text>
+      </view>
+    </view>
+    
+    <!-- 当前状态 -->
+    <view class="current-status">
+      <text class="status-text {{getStatusTextClass()}}">{{getStatusText()}}</text>
+    </view>
+    
+    <!-- 额外信息 -->
+    <view class="extra-info" wx:if="{{showExtra}}">
+      <slot name="extra"></slot>
+    </view>
+  </view>
+  
+  <!-- 操作按钮 -->
+  <view class="actions" wx:if="{{showActions}}">
+    <slot name="actions"></slot>
+  </view>
+</view>

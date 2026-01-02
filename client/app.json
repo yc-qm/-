@@ -1,0 +1,188 @@
+
+{
+  "pages": [
+    
+    "pages/index/index",            
+    "pages/room/room",              
+    "pages/game/game",              
+    "pages/profile/profile",        
+    "pages/login/login",            
+    "pages/records/records",        
+    "pages/achievements/achievements", 
+    "pages/rank/rank",              
+    "pages/friends/friends",        
+    "pages/wallet/wallet",          
+    "pages/shop/shop",              
+    "pages/vip/vip",                
+    "pages/settings/settings",      
+    "pages/feedback/feedback",      
+    "pages/help/help",              
+    "pages/about/about",           
+    "pages/recharge/recharge",      
+    "pages/activity/activity",      
+    "pages/rules/rules",            
+    "pages/challenge/challenge"     
+  ],
+  
+  "window": {
+   
+    "backgroundTextStyle": "light",
+    "backgroundColor": "#f5f7fa",
+    
+   
+    "navigationBarBackgroundColor": "#1a5f1a",
+    "navigationBarTitleText": "扑克世界",
+    "navigationBarTextStyle": "white",
+    
+ 
+    "navigationStyle": "default",
+    "enablePullDownRefresh": false,
+    "onReachBottomDistance": 50,
+    
+    
+    "animationType": "pop-in",
+    "animationDuration": 300,
+    
+ 
+    "backgroundColorTop": "#1a5f1a",
+    "backgroundColorBottom": "#ffffff"
+  },
+  
+  "tabBar": {
+   
+    "color": "#999999",
+    "selectedColor": "#1a5f1a",
+    "backgroundColor": "#ffffff",
+    "borderStyle": "black",
+    "position": "bottom",
+    "custom": false,
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页",
+        "iconPath": "images/icons/home.png",
+        "selectedIconPath": "images/icons/home-active.png"
+      },
+      {
+        "pagePath": "pages/room/room",
+        "text": "房间",
+        "iconPath": "images/icons/room.png",
+        "selectedIconPath": "images/icons/room-active.png"
+      },
+      {
+        "pagePath": "pages/rank/rank",
+        "text": "排行",
+        "iconPath": "images/icons/rank.png",
+        "selectedIconPath": "images/icons/rank-active.png"
+      },
+      {
+        "pagePath": "pages/profile/profile",
+        "text": "我的",
+        "iconPath": "images/icons/profile.png",
+        "selectedIconPath": "images/icons/profile-active.png"
+      }
+    ]
+  },
+  
+  "networkTimeout": {
+    
+    "request": 15000,
+    "connectSocket": 10000,
+    "uploadFile": 30000,
+    "downloadFile": 30000
+  },
+  
+  "debug": false,
+  
+  "functionalPages": true,
+  
+  "subpackages": [
+    
+    {
+      "root": "packageA",
+      "pages": [
+        "pages/achievements/achievements",
+        "pages/rank/rank",
+        "pages/friends/friends"
+      ]
+    },
+    {
+      "root": "packageB",
+      "pages": [
+        "pages/shop/shop",
+        "pages/vip/vip",
+        "pages/recharge/recharge"
+      ]
+    },
+    {
+      "root": "packageC",
+      "pages": [
+        "pages/settings/settings",
+        "pages/feedback/feedback",
+        "pages/help/help",
+        "pages/about/about"
+      ]
+    }
+  ],
+  
+  "preloadRule": {
+  
+    "pages/index/index": {
+      "packages": ["packageA"]
+    },
+    "pages/profile/profile": {
+      "packages": ["packageB", "packageC"]
+    }
+  },
+  
+  "permission": {
+    
+    "scope.userLocation": {
+      "desc": "你的位置信息将用于附近玩家匹配"
+    },
+    "scope.writePhotosAlbum": {
+      "desc": "需要保存图片到相册"
+    },
+    "scope.record": {
+      "desc": "需要录音功能发送语音消息"
+    }
+  },
+  
+  "requiredBackgroundModes": ["audio"],
+  
+  "plugins": {
+    
+  },
+  
+  "workers": "workers",
+  
+  "entranceDeclare": {
+    
+    "gameClubButton": false,
+    "gameBanner": false
+  },
+  
+  "resizable": false,
+  
+  "usingComponents": {
+   
+    "player-info": "/components/player-info/player-info",
+    "card-display": "/components/card-display/card-display",
+    "chat-box": "/components/chat-box/chat-box",
+    "game-mode-card": "/components/game-mode-card/game-mode-card",
+    "room-item": "/components/room-item/room-item",
+    "loading": "/components/loading/loading",
+    "modal": "/components/modal/modal"
+  },
+  
+  "sitemapLocation": "sitemap.json",
+  
+  "style": "v2",
+  
+  "lazyCodeLoading": "requiredComponents",
+  
+  "singlePage": {
+    "navigationBarBackgroundColor": "#1a5f1a",
+    "navigationBarTextStyle": "white"
+  }
+}

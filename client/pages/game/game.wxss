@@ -1,0 +1,146 @@
+.game-container {
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #1a5f1a 0%, #0d3b0d 100%);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.game-header {
+  display: flex;
+  justify-content: space-between;
+  padding: 20rpx 30rpx;
+  background: rgba(0, 0, 0, 0.3);
+  color: white;
+  font-size: 28rpx;
+}
+
+.players-area {
+  flex: 1;
+  position: relative;
+  margin: 40rpx;
+}
+
+.player-top, .player-left, .player-right, .player-bottom {
+  position: absolute;
+}
+
+.player-top {
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.player-left {
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.player-right {
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.player-bottom {
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.table-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20rpx;
+}
+
+.current-cards {
+  display: flex;
+  justify-content: center;
+  gap: 10rpx;
+  min-height: 100rpx;
+}
+
+.current-player {
+  color: white;
+  font-size: 28rpx;
+  background: rgba(0, 0, 0, 0.5);
+  padding: 10rpx 20rpx;
+  border-radius: 20rpx;
+}
+
+.hand-cards-area {
+  background: rgba(0, 0, 0, 0.7);
+  padding: 20rpx;
+  border-top-left-radius: 30rpx;
+  border-top-right-radius: 30rpx;
+}
+
+.hand-cards-title {
+  color: white;
+  font-size: 32rpx;
+  margin-bottom: 20rpx;
+  display: block;
+}
+
+.hand-cards-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10rpx;
+  min-height: 120rpx;
+}
+
+.action-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 40rpx;
+  padding: 20rpx;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.btn-play, .btn-pass, .btn-double, .btn-triple {
+  padding: 20rpx 40rpx;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+  color: white;
+  border: none;
+}
+
+.btn-play {
+  background: #4CAF50;
+}
+
+.btn-play[disabled] {
+  background: #666;
+}
+
+.btn-pass {
+  background: #2196F3;
+}
+
+.doubling-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 40rpx;
+  padding: 30rpx;
+}
+
+.btn-double {
+  background: #FF9800;
+}
+
+.btn-triple {
+  background: #FF5722;
+}
+
+.chat-area {
+  height: 300rpx;
+}

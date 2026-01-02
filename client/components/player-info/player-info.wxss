@@ -1,0 +1,239 @@
+/* 基础样式 */
+.player-info {
+  display: flex;
+  align-items: center;
+  padding: 20rpx;
+  background: white;
+  border-radius: 15rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
+}
+
+.player-info:active {
+  transform: scale(0.98);
+}
+
+/* 大小变体 */
+.player-info.small {
+  padding: 15rpx;
+}
+
+.player-info.small .avatar {
+  width: 80rpx;
+  height: 80rpx;
+}
+
+.player-info.small .player-name {
+  font-size: 28rpx;
+}
+
+.player-info.large {
+  padding: 30rpx;
+}
+
+.player-info.large .avatar {
+  width: 120rpx;
+  height: 120rpx;
+}
+
+.player-info.large .player-name {
+  font-size: 36rpx;
+}
+
+/* 类型变体 */
+.player-info.compact {
+  padding: 10rpx;
+}
+
+.player-info.compact .info-container {
+  margin-left: 10rpx;
+}
+
+.player-info.dark {
+  background: #333;
+  color: white;
+}
+
+.player-info.dark .player-name {
+  color: white;
+}
+
+.player-info.me {
+  border: 2rpx solid #4CAF50;
+  background: #f0f9f0;
+}
+
+/* 头像容器 */
+.avatar-container {
+  position: relative;
+  margin-right: 20rpx;
+}
+
+.avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  border: 3rpx solid #eee;
+  background: #f5f5f5;
+}
+
+/* 状态标识 */
+.status-badge {
+  position: absolute;
+  bottom: -5rpx;
+  right: -5rpx;
+  width: 36rpx;
+  height: 36rpx;
+  border-radius: 50%;
+  border: 2rpx solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.status-badge.online {
+  background: #4CAF50;
+}
+
+.status-badge.offline {
+  background: #999;
+}
+
+.status-badge.playing {
+  background: #2196F3;
+}
+
+.status-badge.busy {
+  background: #FF9800;
+}
+
+.status-icon {
+  width: 20rpx;
+  height: 20rpx;
+}
+
+/* 房主标识 */
+.owner-badge {
+  position: absolute;
+  top: -5rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffd700;
+  padding: 2rpx 8rpx;
+  border-radius: 10rpx;
+  white-space: nowrap;
+}
+
+.owner-icon {
+  width: 20rpx;
+  height: 20rpx;
+}
+
+/* VIP标识 */
+.vip-badge {
+  position: absolute;
+  bottom: -10rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  background: linear-gradient(135deg, #ffd700, #ff9800);
+  color: #8b4513;
+  font-size: 20rpx;
+  padding: 2rpx 10rpx;
+  border-radius: 10rpx;
+  white-space: nowrap;
+  font-weight: bold;
+}
+
+/* 信息容器 */
+.info-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8rpx;
+}
+
+.name-row {
+  display: flex;
+  align-items: center;
+  gap: 10rpx;
+}
+
+.player-name {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: #333;
+  max-width: 200rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.gender-icon {
+  width: 24rpx;
+  height: 24rpx;
+}
+
+/* 统计数据行 */
+.stats-row {
+  display: flex;
+  gap: 20rpx;
+}
+
+.level-box, .gold-box, .winrate-box {
+  display: flex;
+  align-items: center;
+  gap: 5rpx;
+}
+
+.stats-icon {
+  width: 20rpx;
+  height: 20rpx;
+}
+
+.stats-text {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 当前状态 */
+.current-status {
+  margin-top: 5rpx;
+}
+
+.status-text {
+  font-size: 24rpx;
+  padding: 4rpx 12rpx;
+  border-radius: 12rpx;
+  display: inline-block;
+}
+
+.status-text.ready {
+  background: #e8f5e9;
+  color: #4CAF50;
+}
+
+.status-text.playing {
+  background: #e3f2fd;
+  color: #2196F3;
+}
+
+.status-text.waiting {
+  background: #fff3e0;
+  color: #FF9800;
+}
+
+.status-text.offline {
+  background: #f5f5f5;
+  color: #999;
+}
+
+/* 额外信息 */
+.extra-info {
+  margin-top: 10rpx;
+}
+
+/* 操作按钮 */
+.actions {
+  display: flex;
+  gap: 10rpx;
+}

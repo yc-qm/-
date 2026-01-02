@@ -1,0 +1,113 @@
+<view class="game-container">
+  <!-- 顶部游戏信息 -->
+  <view class="game-header">
+    <text class="room-id">房间号: {{roomId}}</text>
+    <text class="multiplier">倍数: x{{multiplier}}</text>
+    <text class="base-gold">{{baseGold}}金币场</text>
+  </view>
+  
+  <!-- 玩家区域（使用player-info组件） -->
+  <view class="players-area">
+    <!-- 上家 -->
+    <view class="player-top" wx:if="{{players[0]}}">
+      <player-info 
+        player="{{players[0]}}"
+        type="compact"
+        size="small"
+        bindtap="onPlayerTap"
+      />
+    </view>
+    
+    <!-- 左家 -->
+    <view class="player-left" wx:if="{{players[1]}}">
+      <player-info 
+        player="{{players[1]}}"
+        type="compact"
+        size="small"
+        bindtap="onPlayerTap"
+      />
+    </view>
+    
+    <!-- 牌桌中心 -->
+    <view class="table-center">
+      <!-- 当前出的牌 -->
+      <view class="current-cards">
+        <block wx:for="{{currentCards}}" wx:key="index">
+          <card-display 
+            card="{{item}}"
+            type="table"
+          />
+        </block>
+      </view>
+      
+      <!-- 当前玩家提示 -->
+      <text class="current-player" wx:if="{{currentPlayerIndex > -1}}">
+        当前出牌: {{players[currentPlayerIndex]?.nickName}}
+      </text>
+    </view>
+    
+    <!-- 右家 -->
+    <view class="player-right" wx:if="{{players[2]}}">
+      <player-info 
+        player="{{players[2]}}"
+        type="compact"
+        size="small"
+        bindtap="onPlayerTap"
+      />
+    </view>
+    
+    <!-- 下家（自己） -->
+    <view class="player-bottom" wx:if="{{players[3]}}">
+      <player-info 
+        player="{{players[3]}}"
+        type="normal"
+        size="normal"
+        isMe="true"
+      />
+    </view>
+  </view>
+  
+  <!-- 手牌区域（使用card-display组件） -->
+  <view class="hand-cards-area">
+    <text class="hand-cards-title">我的手牌 ({{handCards.length}}张)</text>
+    <view class="hand-cards-list">
+      <block wx:for="{{handCards}}" wx:key="index">
+        <card-display 
+          card="{{item}}"
+          type="normal"
+          selected="{{selectedCards.some(c => c.suit === item.suit && c.rank === item.rank)}}"
+          bindtap="onCardTap"
+          bindlongpress="onCardLongPress"
+        />
+      </block>
+    </view>
+  </view>
+  
+  <!-- 操作按钮 -->
+  <view class="action-buttons" wx:if="{{canPlay && gameStatus === 'playing'}}">
+    <button class="btn-play" bindtap="playCards" 
+            disabled="{{selectedCards.length === 0}}">
+      出牌({{selectedCards.length}}张)
+    </button>
+    <button class="btn-pass" bindtap="passTurn">过</button>
+  </view>
+  
+  <!-- 加倍阶段按钮 -->
+  <view class="doubling-buttons" wx:if="{{gameStatus === 'doubling'}}">
+    <button class="btn-double" bindtap="chooseDouble">加倍</button>
+    <button class="btn-triple" bindtap="chooseTriple">三倍</button>
+  </view>
+  
+  <!-- 聊天区域（使用chat-box组件） -->
+  <view class="chat-area">
+    <chat-box 
+      mode="compact"
+      myUserId="{{myUserId}}"
+      messages="{{chatMessages}}"
+      showInput="{{true}}"
+      showQuickPhrases="{{true}}"
+      bindsend="onChatSend"
+      bindloadmore="loadMoreMessages"
+    />
+  </view>
+</view>

@@ -1,0 +1,104 @@
+.chat-bubble {
+  margin-bottom: 20rpx;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10rpx);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* 系统消息 */
+.system-message {
+  text-align: center;
+  margin: 10rpx 0;
+}
+
+.system-text {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(0, 0, 0, 0.3);
+  padding: 6rpx 20rpx;
+  border-radius: 20rpx;
+  display: inline-block;
+}
+
+/* 普通消息 */
+.normal-message {
+  display: flex;
+  flex-direction: column;
+  max-width: 80%;
+}
+
+.me .normal-message {
+  align-items: flex-end;
+  margin-left: auto;
+}
+
+.other .normal-message {
+  align-items: flex-start;
+  margin-right: auto;
+}
+
+.message-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10rpx;
+}
+
+.sender-avatar {
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: 50%;
+  margin-right: 10rpx;
+}
+
+.sender-name {
+  font-size: 24rpx;
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.message-content {
+  padding: 15rpx 20rpx;
+  border-radius: 20rpx;
+  position: relative;
+  min-width: 80rpx;
+  word-break: break-all;
+}
+
+.me .message-content {
+  background: #2196F3;
+  border-bottom-right-radius: 5rpx;
+}
+
+.other .message-content {
+  background: rgba(255, 255, 255, 0.9);
+  border-bottom-left-radius: 5rpx;
+}
+
+.content-text {
+  font-size: 28rpx;
+}
+
+.me .content-text {
+  color: white;
+}
+
+.other .content-text {
+  color: #333;
+}
+
+.message-time {
+  margin-top: 5rpx;
+}
+
+.time-text {
+  font-size: 22rpx;
+  color: rgba(255, 255, 255, 0.5);
+}

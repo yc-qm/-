@@ -1,0 +1,204 @@
+<view class="profile-container">
+  <!-- 用户信息卡片 -->
+  <view class="user-card">
+    <view class="user-bg"></view>
+    <view class="user-info">
+      <image class="user-avatar" src="{{userInfo.avatarUrl}}" bindtap="changeAvatar"></image>
+      <view class="user-details">
+        <view class="user-name-row">
+          <text class="user-name">{{userInfo.nickName}}</text>
+          <button class="btn-edit" bindtap="editProfile">
+            <image src="/images/icons/edit.png" class="edit-icon"></image>
+          </button>
+        </view>
+        <text class="user-id">ID: {{userInfo.userId}}</text>
+        <text class="user-signature" wx:if="{{userInfo.signature}}">
+          {{userInfo.signature}}
+        </text>
+        <text class="user-signature placeholder" wx:else bindtap="editSignature">
+          点击设置个性签名
+        </text>
+      </view>
+    </view>
+    
+    <view class="user-assets">
+      <view class="asset-item" bindtap="goToWallet">
+        <image src="/images/icons/gold.png" class="asset-icon"></image>
+        <view class="asset-info">
+          <text class="asset-name">金币</text>
+          <text class="asset-value">{{userInfo.goldCoins || 0}}</text>
+        </view>
+      </view>
+      
+      <view class="asset-item" bindtap="goToWallet">
+        <image src="/images/icons/diamond.png" class="asset-icon"></image>
+        <view class="asset-info">
+          <text class="asset-name">钻石</text>
+          <text class="asset-value">{{userInfo.diamond || 0}}</text>
+        </view>
+      </view>
+      
+      <view class="asset-item" bindtap="goToVip">
+        <image src="/images/icons/vip.png" class="asset-icon"></image>
+        <view class="asset-info">
+          <text class="asset-name">VIP等级</text>
+          <text class="asset-value">VIP{{userInfo.vipLevel || 0}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 游戏数据 -->
+  <view class="stats-section">
+    <text class="section-title">游戏数据</text>
+    <view class="stats-grid">
+      <view class="stat-item">
+        <text class="stat-value">{{gameStats.totalGames || 0}}</text>
+        <text class="stat-label">总场次</text>
+      </view>
+      
+      <view class="stat-item">
+        <text class="stat-value">{{gameStats.winRate || '0%'}}</text>
+        <text class="stat-label">胜率</text>
+      </view>
+      
+      <view class="stat-item">
+        <text class="stat-value">{{gameStats.winStreak || 0}}</text>
+        <text class="stat-label">当前连胜</text>
+      </view>
+      
+      <view class="stat-item">
+        <text class="stat-value">{{gameStats.maxWinStreak || 0}}</text>
+        <text class="stat-label">最高连胜</text>
+      </view>
+    </view>
+    
+    <view class="detailed-stats">
+      <view class="detailed-item">
+        <text class="detailed-label">胜场:</text>
+        <text class="detailed-value">{{gameStats.winGames || 0}}</text>
+      </view>
+      <view class="detailed-item">
+        <text class="detailed-label">负场:</text>
+        <text class="detailed-value">{{gameStats.loseGames || 0}}</text>
+      </view>
+      <view class="detailed-item">
+        <text class="detailed-label">平局:</text>
+        <text class="detailed-value">{{gameStats.drawGames || 0}}</text>
+      </view>
+      <view class="detailed-item">
+        <text class="detailed-label">总收益:</text>
+        <text class="detailed-value {{gameStats.totalEarnings >= 0 ? 'positive' : 'negative'}}">
+          {{gameStats.totalEarnings >= 0 ? '+' : ''}}{{gameStats.totalEarnings || 0}}
+        </text>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 功能列表 -->
+  <view class="functions-section">
+    <text class="section-title">功能中心</text>
+    
+    <view class="function-list">
+      <!-- 游戏相关 -->
+      <view class="function-item" bindtap="goToGameRecords">
+        <image src="/images/icons/history.png" class="function-icon"></image>
+        <text class="function-name">历史战绩</text>
+        <image src="/images/icons/arrow-right.png" class="arrow-icon"></image>
+      </view>
+      
+      <view class="function-item" bindtap="goToAchievements">
+        <image src="/images/icons/achievement.png" class="function-icon"></image>
+        <text class="function-name">成就系统</text>
+        <image src="/images/icons/arrow-right.png" class="arrow-icon"></image>
+      </view>
+      
+      <view class="function-item" bindtap="goToRank">
+        <image src="/images/icons/rank.png" class="function-icon"></image>
+        <text class="function-name">排行榜</text>
+        <image src="/images/icons/arrow-right.png" class="arrow-icon"></image>
+      </view>
+      
+      <view class="function-item" bindtap="goToFriends">
+        <image src="/images/icons/friends.png" class="function-icon"></image>
+        <text class="function-name">好友列表</text>
+        <view class="badge" wx:if="{{friendRequests > 0}}">{{friendRequests}}</view>
+        <image src="/images/icons/arrow-right.png" class="arrow-icon"></image>
+      </view>
+      
+      <!-- 资产相关 -->
+      <view class="function-item" bindtap="goToWallet">
+        <image src="/images/icons/wallet.png" class="function-icon"></image>
+        <text class="function-name">我的钱包</text>
+        <image src="/images/icons/arrow-right.png" class="arrow-icon"></image>
+      </view>
+      
+      <view class="function-item" bindtap="goToShop">
+        <image src="/images/icons/shop.png" class="function-icon"></image>
+        <text class="function-name">道具商城</text>
+        <image src="/images/icons/arrow-right.png" class="arrow-icon"></image>
+      </view>
+      
+      <view class="function-item" bindtap="goToVip">
+        <image src="/images/icons/vip.png" class="function-icon"></image>
+        <text class="function-name">VIP特权</text>
+        <image src="/images/icons/arrow-right.png" class="arrow-icon"></image>
+      </view>
+      
+      <!-- 设置相关 -->
+      <view class="function-item" bindtap="goToSettings">
+        <image src="/images/icons/settings.png" class="function-icon"></image>
+        <text class="function-name">系统设置</text>
+        <image src="/images/icons/arrow-right.png" class="arrow-icon"></image>
+      </view>
+      
+      <view class="function-item" bindtap="goToFeedback">
+        <image src="/images/icons/feedback.png" class="function-icon"></image>
+        <text class="function-name">意见反馈</text>
+        <image src="/images/icons/arrow-right.png" class="arrow-icon"></image>
+      </view>
+      
+      <view class="function-item" bindtap="goToHelp">
+        <image src="/images/icons/help.png" class="function-icon"></image>
+        <text class="function-name">帮助中心</text>
+        <image src="/images/icons/arrow-right.png" class="arrow-icon"></image>
+      </view>
+      
+      <view class="function-item" bindtap="goToAbout">
+        <image src="/images/icons/about.png" class="function-icon"></image>
+        <text class="function-name">关于我们</text>
+        <image src="/images/icons/arrow-right.png" class="arrow-icon"></image>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 底部操作 -->
+  <view class="bottom-actions">
+    <button class="btn-logout" bindtap="logout">退出登录</button>
+  </view>
+  
+  <!-- 编辑签名弹窗 -->
+  <view class="modal {{showEditSignature ? 'show' : ''}}">
+    <view class="modal-content">
+      <view class="modal-header">
+        <text class="modal-title">编辑个性签名</text>
+        <text class="modal-close" bindtap="closeEditSignature">×</text>
+      </view>
+      <view class="modal-body">
+        <textarea 
+          class="signature-input" 
+          placeholder="请输入个性签名（最多50字）"
+          value="{{signatureInput}}"
+          maxlength="50"
+          bindinput="onSignatureInput"
+          auto-height
+        ></textarea>
+        <text class="char-count">{{signatureInput.length}}/50</text>
+      </view>
+      <view class="modal-footer">
+        <button class="btn-cancel" bindtap="closeEditSignature">取消</button>
+        <button class="btn-confirm" bindtap="saveSignature">保存</button>
+      </view>
+    </view>
+  </view>
+</view>

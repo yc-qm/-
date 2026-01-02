@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "player-seat": "../../components/player-seat/player-seat",
+    "chat-bubble": "../../components/chat-bubble/chat-bubble"
+  },
+  "navigationBarTitleText": "房间",
+  "navigationBarBackgroundColor": "#1a5f1a",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": false,
+  "disableScroll": true
+}

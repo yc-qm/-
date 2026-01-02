@@ -1,0 +1,269 @@
+<view class="room-container">
+  <!-- 房间顶部信息 -->
+  <view class="room-header">
+    <view class="room-info">
+      <text class="room-id">房间号: {{roomInfo.id || '--'}}</text>
+      <text class="room-stake">{{roomInfo.baseGold}}金币场</text>
+      <text class="room-type">{{roomTypeText}}</text>
+    </view>
+    
+    <view class="room-actions">
+      <button class="btn-invite" bindtap="inviteFriend" wx:if="{{!isFull}}">
+        <image src="/images/icons/invite.png" class="btn-icon"></image>
+        邀请
+      </button>
+      <button class="btn-share" bindtap="shareRoom">
+        <image src="/images/icons/share.png" class="btn-icon"></image>
+        分享
+      </button>
+      <button class="btn-exit" bindtap="showExitConfirm">
+        <image src="/images/icons/exit.png" class="btn-icon"></image>
+        退出
+      </button>
+    </view>
+  </view>
+  
+  <!-- 密码输入弹窗 -->
+  <view class="modal {{showPasswordModal ? 'show' : ''}}" wx:if="{{showPasswordModal}}">
+    <view class="modal-content password-modal">
+      <view class="modal-header">
+        <text class="modal-title">输入房间密码</text>
+      </view>
+      <view class="modal-body">
+        <input 
+          type="number" 
+          placeholder="请输入6位数字密码" 
+          maxlength="6"
+          value="{{passwordInput}}"
+          bindinput="onPasswordInput"
+          focus
+        />
+        <text class="error-msg" wx:if="{{passwordError}}">{{passwordError}}</text>
+      </view>
+      <view class="modal-footer">
+        <button class="btn-cancel" bindtap="cancelJoin">取消</button>
+        <button class="btn-confirm" bindtap="confirmPassword">确认</button>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 游戏牌桌 -->
+  <view class="game-table">
+    <!-- 上方玩家（位置1） -->
+    <player-seat 
+      position="top"
+      player="{{players[0]}}"
+      isMe="{{players[0] && players[0].userId === userInfo.userId}}"
+      bindtap="clickPlayer"
+    />
+    
+    <!-- 左方玩家（位置2） -->
+    <player-seat 
+      position="left"
+      player="{{players[1]}}"
+      isMe="{{players[1] && players[1].userId === userInfo.userId}}"
+      bindtap="clickPlayer"
+    />
+    
+    <!-- 桌中央 - 显示房间信息和操作 -->
+    <view class="table-center">
+      <!-- 等待阶段显示 -->
+      <view class="waiting-info" wx:if="{{roomStatus === 'waiting'}}">
+        <text class="waiting-text">
+          {{isFull ? '等待房主开始游戏' : '等待玩家加入...'}}
+        </text>
+        <text class="player-count">
+          已加入: {{playerCount}}/4
+        </text>
+        
+        <!-- 房主操作区 -->
+        <view class="owner-actions" wx:if="{{isOwner}}">
+          <view class="stake-setting" wx:if="{{!isFull}}">
+            <text class="setting-label">底注设置:</text>
+            <picker 
+              range="{{stakeOptions}}" 
+              value="{{selectedStakeIndex}}" 
+              bindchange="onStakeChange"
+            >
+              <view class="stake-picker">{{stakeOptions[selectedStakeIndex]}}金币</view>
+            </picker>
+          </view>
+          
+          <button 
+            class="btn-start" 
+            bindtap="startGame"
+            disabled="{{!isFull}}"
+          >
+            {{isFull ? '开始游戏' : '等待玩家(' + playerCount + '/4)'}}
+          </button>
+          
+          <button 
+            class="btn-kick-all" 
+            bindtap="kickAllPlayers"
+            wx:if="{{playerCount > 1}}"
+          >
+            清空房间
+          </button>
+        </view>
+        
+        <!-- 玩家操作区 -->
+        <view class="player-actions" wx:if="{{!isOwner && playerCount > 0}}">
+          <view class="ready-status">
+            <text class="ready-text">
+              {{isReady ? '已准备' : '未准备'}}
+            </text>
+            <switch 
+              checked="{{isReady}}" 
+              bindchange="toggleReady"
+              color="#1a5f1a"
+            />
+          </view>
+          
+          <text class="ready-tip" wx:if="{{!isReady}}">
+            请点击准备，等待房主开始游戏
+          </text>
+        </view>
+      </view>
+      
+      <!-- 游戏开始倒计时 -->
+      <view class="countdown-area" wx:if="{{roomStatus === 'countdown'}}">
+        <view class="countdown-circle">
+          <text class="countdown-number">{{countdown}}</text>
+          <text class="countdown-text">秒后开始</text>
+        </view>
+        <text class="countdown-tip">请准备好，游戏即将开始</text>
+      </view>
+      
+      <!-- 已开始游戏提示 -->
+      <view class="game-started" wx:if="{{roomStatus === 'playing'}}">
+        <text class="game-status-text">游戏已开始</text>
+        <text class="game-status-tip">正在游戏中...</text>
+        <button class="btn-rejoin" bindtap="rejoinGame">重新加入</button>
+      </view>
+    </view>
+    
+    <!-- 右方玩家（位置3） -->
+    <player-seat 
+      position="right"
+      player="{{players[2]}}"
+      isMe="{{players[2] && players[2].userId === userInfo.userId}}"
+      bindtap="clickPlayer"
+    />
+    
+    <!-- 下方玩家（我自己，位置4） -->
+    <player-seat 
+      position="bottom"
+      player="{{myInfo}}"
+      isMe="true"
+    />
+  </view>
+  
+  <!-- 聊天区域 -->
+  <view class="chat-section">
+    <view class="chat-header">
+      <text class="chat-title">聊天室</text>
+      <text class="chat-clear" bindtap="clearChat">清空</text>
+    </view>
+    
+    <scroll-view 
+      class="chat-messages" 
+      scroll-y 
+      scroll-with-animation 
+      scroll-top="{{chatScrollTop}}"
+      id="chat-scroll"
+    >
+      <block wx:for="{{chatMessages}}" wx:key="id">
+        <chat-bubble 
+          message="{{item}}"
+          isMe="{{item.senderId === userInfo.userId}}"
+        />
+      </block>
+    </scroll-view>
+    
+    <view class="chat-input-area">
+      <view class="quick-chat-buttons">
+        <button 
+          class="quick-chat-btn" 
+          wx:for="{{quickChats}}" 
+          wx:key="index"
+          bindtap="sendQuickChat" 
+          data-index="{{index}}"
+        >
+          {{item}}
+        </button>
+      </view>
+      
+      <view class="chat-input-row">
+        <input 
+          class="chat-input" 
+          placeholder="输入聊天内容..." 
+          value="{{chatInput}}"
+          bindinput="onChatInput"
+          bindconfirm="sendChat"
+          maxlength="50"
+        />
+        <button class="btn-send-chat" bindtap="sendChat">发送</button>
+      </view>
+    </view>
+  </view>
+  
+  <!-- 玩家操作菜单 -->
+  <view class="player-menu-modal {{showPlayerMenu ? 'show' : ''}}">
+    <view class="player-menu-content">
+      <view class="player-info-menu">
+        <image class="player-avatar-menu" src="{{selectedPlayer.avatarUrl}}"></image>
+        <text class="player-name-menu">{{selectedPlayer.nickName}}</text>
+        <text class="player-id-menu">ID: {{selectedPlayer.userId}}</text>
+      </view>
+      
+      <view class="menu-actions">
+        <button class="menu-btn" bindtap="viewPlayerProfile">
+          <image src="/images/icons/profile.png" class="menu-icon"></image>
+          查看资料
+        </button>
+        
+        <button 
+          class="menu-btn" 
+          bindtap="kickPlayer"
+          wx:if="{{isOwner && selectedPlayer.userId !== userInfo.userId}}"
+        >
+          <image src="/images/icons/kick.png" class="menu-icon"></image>
+          踢出房间
+        </button>
+        
+        <button class="menu-btn" bindtap="addFriend">
+          <image src="/images/icons/add-friend.png" class="menu-icon"></image>
+          添加好友
+        </button>
+        
+        <button class="menu-btn" bindtap="sendPrivateMessage">
+          <image src="/images/icons/message.png" class="menu-icon"></image>
+          私聊
+        </button>
+      </view>
+      
+      <button class="menu-close" bindtap="closePlayerMenu">取消</button>
+    </view>
+  </view>
+  
+  <!-- 退出确认弹窗 -->
+  <view class="modal {{showExitConfirmModal ? 'show' : ''}}">
+    <view class="modal-content exit-modal">
+      <view class="modal-header">
+        <text class="modal-title">确认退出房间？</text>
+      </view>
+      <view class="modal-body">
+        <text class="exit-warning" wx:if="{{isOwner}}">
+          您是房主，退出房间将解散房间！
+        </text>
+        <text class="exit-warning" wx:else>
+          退出房间将扣除{{penaltyGold}}金币
+        </text>
+      </view>
+      <view class="modal-footer">
+        <button class="btn-cancel" bindtap="cancelExit">取消</button>
+        <button class="btn-confirm" bindtap="confirmExit">确认退出</button>
+      </view>
+    </view>
+  </view>
+</view>

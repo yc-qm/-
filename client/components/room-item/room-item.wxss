@@ -1,0 +1,67 @@
+.room-item {
+  background: white;
+  border-radius: 15rpx;
+  padding: 25rpx;
+  margin-bottom: 20rpx;
+  box-shadow: 0 2rpx 10rpx rgba(0, 0, 0, 0.05);
+  border-left: 8rpx solid #1a5f1a;
+  transition: transform 0.2s;
+}
+
+.room-item:active {
+  transform: scale(0.99);
+}
+
+.room-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15rpx;
+}
+
+.room-id {
+  font-size: 30rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.room-type {
+  font-size: 24rpx;
+  color: white;
+  background: #4CAF50;
+  padding: 4rpx 15rpx;
+  border-radius: 20rpx;
+}
+
+.room-info {
+  display: flex;
+  gap: 30rpx;
+  margin-bottom: 15rpx;
+}
+
+.room-stake, .room-players {
+  display: flex;
+  align-items: center;
+  color: #666;
+  font-size: 26rpx;
+}
+
+.info-icon {
+  width: 30rpx;
+  height: 30rpx;
+  margin-right: 10rpx;
+}
+
+.room-creator {
+  font-size: 26rpx;
+  color: #888;
+  margin-bottom: 15rpx;
+}
+
+.room-join {
+  text-align: center;
+  padding-top: 15rpx;
+  border-top: 1rpx solid #eee;
+  color: #1a5f1a;
+  font-weight: bold;
+}

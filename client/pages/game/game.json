@@ -1,0 +1,13 @@
+
+{
+  "navigationBarTitleText": "扑克游戏",
+  "usingComponents": {},
+  "disableScroll": true
+}
+{
+  "usingComponents": {
+    "player-info": "../../components/player-info/player-info",
+    "card-display": "../../components/card-display/card-display",
+    "chat-box": "../../components/chat-box/chat-box"
+  }
+}

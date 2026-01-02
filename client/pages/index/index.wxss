@@ -1,0 +1,403 @@
+/* 页面容器 */
+.index-container {
+  min-height: 100vh;
+  background: linear-gradient(180deg, #f5f7fa 0%, #e4e8f0 100%);
+  padding-bottom: 120rpx;
+}
+
+/* 用户信息区域 */
+.user-info-section {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 40rpx 30rpx;
+  background: linear-gradient(135deg, #1a5f1a 0%, #2a7a2a 100%);
+  color: white;
+  border-radius: 0 0 30rpx 30rpx;
+  box-shadow: 0 4rpx 20rpx rgba(26, 95, 26, 0.3);
+}
+
+.user-avatar-box {
+  display: flex;
+  align-items: center;
+}
+
+.user-avatar {
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  border: 4rpx solid white;
+  margin-right: 20rpx;
+}
+
+.user-name {
+  font-size: 36rpx;
+  font-weight: bold;
+  max-width: 300rpx;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.user-assets {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 15rpx;
+}
+
+.gold-box, .diamond-box {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.2);
+  padding: 8rpx 20rpx;
+  border-radius: 50rpx;
+  min-width: 200rpx;
+  justify-content: space-between;
+}
+
+.coin-icon, .diamond-icon {
+  width: 40rpx;
+  height: 40rpx;
+  margin-right: 10rpx;
+}
+
+.gold-number, .diamond-number {
+  font-size: 32rpx;
+  font-weight: bold;
+  margin-right: 20rpx;
+}
+
+.btn-recharge {
+  background: #ffd700;
+  color: #8b4513;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  padding: 0 20rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  margin: 0;
+}
+
+/* 活动轮播 */
+.activity-swiper {
+  height: 160rpx;
+  margin: 30rpx;
+  border-radius: 20rpx;
+  overflow: hidden;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.1);
+}
+
+.activity-item {
+  height: 100%;
+  padding: 30rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border-radius: 20rpx;
+}
+
+.activity-title {
+  font-size: 32rpx;
+  font-weight: bold;
+  color: white;
+  margin-bottom: 10rpx;
+}
+
+.activity-desc {
+  font-size: 26rpx;
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* 游戏模式区域 */
+.game-modes-section {
+  margin: 30rpx;
+}
+
+.section-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 30rpx;
+  position: relative;
+  padding-left: 20rpx;
+}
+
+.section-title::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8rpx;
+  height: 30rpx;
+  background: #1a5f1a;
+  border-radius: 4rpx;
+}
+
+.mode-cards {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20rpx;
+}
+
+/* 场次选择区域 */
+.stakes-section {
+  margin: 30rpx;
+}
+
+.stakes-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20rpx;
+  margin-bottom: 40rpx;
+}
+
+.stake-card {
+  background: white;
+  border-radius: 20rpx;
+  padding: 30rpx 20rpx;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.05);
+  transition: all 0.3s;
+  border: 2rpx solid transparent;
+}
+
+.stake-card.selected {
+  border-color: #1a5f1a;
+  background: #f0f9f0;
+  transform: translateY(-10rpx);
+  box-shadow: 0 8rpx 25rpx rgba(26, 95, 26, 0.2);
+}
+
+.stake-name {
+  font-size: 28rpx;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10rpx;
+}
+
+.stake-amount {
+  font-size: 32rpx;
+  color: #ff6b00;
+  font-weight: bold;
+  margin-bottom: 5rpx;
+}
+
+.stake-desc {
+  font-size: 24rpx;
+  color: #999;
+}
+
+.btn-confirm-stake {
+  background: linear-gradient(135deg, #1a5f1a 0%, #2a7a2a 100%);
+  color: white;
+  border-radius: 50rpx;
+  font-size: 32rpx;
+  padding: 25rpx 0;
+  width: 100%;
+  border: none;
+}
+
+/* 快速开始房间区域 */
+.quick-rooms-section {
+  margin: 30rpx;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20rpx;
+}
+
+.refresh-btn {
+  font-size: 28rpx;
+  color: #1a5f1a;
+  padding: 10rpx 20rpx;
+  border: 1rpx solid #1a5f1a;
+  border-radius: 20rpx;
+}
+
+.rooms-list {
+  background: white;
+  border-radius: 20rpx;
+  padding: 20rpx;
+  box-shadow: 0 4rpx 15rpx rgba(0, 0, 0, 0.05);
+  min-height: 200rpx;
+}
+
+.empty-rooms {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 200rpx;
+}
+
+.empty-icon {
+  width: 80rpx;
+  height: 80rpx;
+  margin-bottom: 20rpx;
+  opacity: 0.5;
+}
+
+.empty-text {
+  color: #999;
+  font-size: 28rpx;
+}
+
+/* 底部操作栏 */
+.bottom-actions {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: white;
+  display: flex;
+  justify-content: space-around;
+  padding: 20rpx 0;
+  border-top: 1rpx solid #eee;
+  box-shadow: 0 -4rpx 20rpx rgba(0, 0, 0, 0.05);
+  z-index: 100;
+}
+
+.bottom-actions button {
+  background: transparent;
+  border: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10rpx;
+  flex: 1;
+}
+
+.bottom-actions button::after {
+  border: none;
+}
+
+.btn-icon {
+  width: 50rpx;
+  height: 50rpx;
+  margin-bottom: 10rpx;
+}
+
+.bottom-actions button text {
+  font-size: 24rpx;
+  color: #666;
+}
+
+/* 创建房间弹窗 */
+.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.modal.show {
+  display: flex;
+  opacity: 1;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 30rpx;
+  width: 80%;
+  max-width: 600rpx;
+  overflow: hidden;
+  transform: translateY(50rpx);
+  transition: transform 0.3s;
+}
+
+.modal.show .modal-content {
+  transform: translateY(0);
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 30rpx;
+  border-bottom: 1rpx solid #eee;
+}
+
+.modal-title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #333;
+}
+
+.modal-close {
+  font-size: 50rpx;
+  color: #999;
+  line-height: 1;
+}
+
+.modal-body {
+  padding: 30rpx;
+}
+
+.form-group {
+  margin-bottom: 30rpx;
+}
+
+.form-label {
+  display: block;
+  font-size: 28rpx;
+  color: #666;
+  margin-bottom: 15rpx;
+}
+
+.picker {
+  background: #f5f7fa;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  color: #333;
+}
+
+input {
+  background: #f5f7fa;
+  padding: 20rpx;
+  border-radius: 10rpx;
+  font-size: 28rpx;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.modal-footer {
+  display: flex;
+  padding: 20rpx 30rpx;
+  gap: 20rpx;
+}
+
+.btn-cancel, .btn-confirm {
+  flex: 1;
+  border-radius: 50rpx;
+  font-size: 28rpx;
+  padding: 20rpx 0;
+}
+
+.btn-cancel {
+  background: #f5f7fa;
+  color: #666;
+  border: none;
+}
+
+.btn-confirm {
+  background: linear-gradient(135deg, #1a5f1a 0%, #2a7a2a 100%);
+  color: white;
+  border: none;
+}

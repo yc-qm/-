@@ -1,0 +1,11 @@
+{
+  "usingComponents": {
+    "game-mode-card": "../../components/game-mode-card/game-mode-card",
+    "room-item": "../../components/room-item/room-item"
+  },
+  "navigationBarTitleText": "扑克世界",
+  "navigationBarBackgroundColor": "#1a5f1a",
+  "navigationBarTextStyle": "white",
+  "enablePullDownRefresh": true,
+  "backgroundTextStyle": "dark"
+}
